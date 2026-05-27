@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  node-1:
+    build: .
+    ports:
+      - "3001:3000"
+    environment:
+      - HTTP_PORT=3000
+    volumes:
+      - node-1-data:/app/blockchain-db
+
+  node-2:
+    build: .
+    ports:
+      - "3002:3000"
+    environment:
+      - HTTP_PORT=3000
+      - PEERS=ws://node-1:3000
+    depends_on:
+      - node-1
+    volumes:
+      - node-2-data:/app/blockchain-db
+
+  node-3:
+    build: .
+    ports:
+      - "3003:3000"
+    environment:
+      - HTTP_PORT=3000
+      - PEERS=ws://node-1:3000,ws://node-2:3000
+    depends_on:
+      - node-1
+      - node-2
+    volumes:
+      - node-3-data:/app/blockchain-db
+
+volumes:
+  node-1-data:
+  node-2-data:
+  node-3-data:

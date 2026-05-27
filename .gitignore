@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment Variables (Keep your secrets secret!)
+.env
+
+# Testing (For Phase 2 when we add Jest)
+coverage/
+
+# Database / Persistent Storage (For Phase 3 when we add LevelDB)
+chain-data/
+db/
+
+# OS generated files
+.DS_Store
+Thumbs.db
