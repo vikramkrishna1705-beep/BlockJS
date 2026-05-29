@@ -15,6 +15,7 @@ const GENESIS_DATA = {
     index: 0,
     timestamp: 1, // Fixed timestamp for genesis
     previousHash: '0000000000000000000000000000000000000000000000000000000000000000',
+    merkleRoot: '',
     hash: 'genesis-hash',
     difficulty: INITIAL_DIFFICULTY,
     nonce: 0,

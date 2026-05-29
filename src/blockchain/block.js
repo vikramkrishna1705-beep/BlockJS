@@ -2,12 +2,14 @@
 
 const { GENESIS_DATA, MINE_RATE } = require('../utils/config');
 const { cryptoHash } = require('../utils/crypto');
+const { calculateMerkleRoot } = require('../utils/merkle');
 
 class Block {
-    constructor({ index, timestamp, previousHash, hash, transactions, nonce, difficulty }) {
+    constructor({ index, timestamp, previousHash, merkleRoot, hash, transactions, nonce, difficulty }) {
         this.index = index;
         this.timestamp = timestamp;
         this.previousHash = previousHash;
+        this.merkleRoot = merkleRoot;
         this.hash = hash;
         this.transactions = transactions; // Array of transaction objects
         this.nonce = nonce;
@@ -47,19 +49,22 @@ class Block {
         const index = lastBlock.index + 1;
         let { difficulty } = lastBlock;
         let nonce = 0;
+        
+        const merkleRoot = calculateMerkleRoot(transactions);
 
         // The Mining Loop
         do {
             nonce++;
             timestamp = Date.now();
             difficulty = Block.adjustDifficulty({ originalBlock: lastBlock, timestamp });
-            hash = cryptoHash(index, timestamp, previousHash, transactions, nonce, difficulty);
+            hash = cryptoHash(index, timestamp, previousHash, merkleRoot, nonce, difficulty);
         } while (hash.substring(0, difficulty) !== '0'.repeat(difficulty));
 
         return new this({
             index,
             timestamp,
             previousHash,
+            merkleRoot,
             transactions,
             nonce,
             difficulty,

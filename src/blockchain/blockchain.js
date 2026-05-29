@@ -2,6 +2,7 @@
 
 const Block = require('./block');
 const { cryptoHash } = require('../utils/crypto');
+const { calculateMerkleRoot } = require('../utils/merkle');
 
 class Blockchain {
     constructor(utxoPool) {
@@ -46,13 +47,16 @@ class Blockchain {
         for (let i = 1; i < chain.length; i++) {
             const block = chain[i];
             const actualLastHash = chain[i - 1].hash;
-            const { index, timestamp, previousHash, hash, transactions, nonce, difficulty } = block;
+            const { index, timestamp, previousHash, merkleRoot, hash, transactions, nonce, difficulty } = block;
 
             // Check the chain link
             if (previousHash !== actualLastHash) return false;
+            
+            // Validate the Merkle Root
+            if (merkleRoot !== calculateMerkleRoot(transactions)) return false;
 
             // Recalculate the hash to ensure no data (transactions) was tampered with
-            const validatedHash = cryptoHash(index, timestamp, previousHash, transactions, nonce, difficulty);
+            const validatedHash = cryptoHash(index, timestamp, previousHash, merkleRoot, nonce, difficulty);
             if (hash !== validatedHash) return false;
 
             // Enforce Dynamic Difficulty Adjustment rules (difficulty shouldn't jump by > 1)

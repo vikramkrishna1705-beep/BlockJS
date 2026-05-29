@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockJS Explorer</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .column { flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .block, .tx { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa; }
+        .block h3, .tx h4 { margin-top: 0; color: #2980b9; }
+        .hash { font-family: monospace; font-size: 0.85em; background: #eee; padding: 3px 5px; border-radius: 3px; word-break: break-all; }
+        button { background-color: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #2ecc71; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BlockJS Explorer</h1>
+        <p>Real-time visual dashboard for pedagogical blockchain analysis</p>
+        <button id="refreshBtn">Refresh Data</button>
+    </header>
+
+    <div class="container">
+        <div class="column">
+            <h2>Blockchain (<span id="blockCount">0</span> Blocks)</h2>
+            <div id="blocksContainer">Loading blocks...</div>
+        </div>
+        <div class="column">
+            <h2>Mempool (Pending Txs)</h2>
+            <div id="mempoolContainer">Loading mempool...</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

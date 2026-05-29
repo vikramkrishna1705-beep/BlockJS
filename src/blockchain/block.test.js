@@ -1,6 +1,7 @@
 const Block = require('./block');
 const { GENESIS_DATA, MINE_RATE } = require('../utils/config');
 const { cryptoHash } = require('../utils/crypto');
+const { calculateMerkleRoot } = require('../utils/merkle');
 
 describe('Block', () => {
     let lastBlock, data, minedBlock;
@@ -37,7 +38,7 @@ describe('Block', () => {
                     minedBlock.index,
                     minedBlock.timestamp,
                     lastBlock.hash,
-                    data,
+                    minedBlock.merkleRoot,
                     minedBlock.nonce,
                     minedBlock.difficulty
                 )

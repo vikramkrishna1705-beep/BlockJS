@@ -1,6 +1,7 @@
 // src/network/api.js
 
 const express = require('express');
+const path = require('path');
 const Transaction = require('../wallet/transaction');
 
 /**
@@ -9,6 +10,12 @@ const Transaction = require('../wallet/transaction');
 function createAPI(blockchain, wallet, transactionPool, p2pNetwork) {
     const app = express();
     app.use(express.json()); // Allows us to parse JSON bodies
+    app.use(express.static(path.join(__dirname, '../../public')));
+    
+    // Explicit fallback for the root route
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../public/index.html'));
+    });
 
     // View the current state of the blockchain
     app.get('/blocks', (req, res) => {
@@ -27,7 +34,9 @@ function createAPI(blockchain, wallet, transactionPool, p2pNetwork) {
 
     // Create a new transaction
     app.post('/transact', (req, res) => {
-        const { outputPublicKey, amount, fee } = req.body;
+        const { outputPublicKey } = req.body;
+        const amount = Number(req.body.amount);
+        const fee = Number(req.body.fee);
 
         try {
             // 1. Create and sign the transaction
