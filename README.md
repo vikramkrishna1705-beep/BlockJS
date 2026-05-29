@@ -1,6 +1,6 @@
 # 🚀 BlockJS
 
-[![Node.js CI](https://github.com/vikramkrishna1705-beep/BlockJS/actions/workflows/test.yml/badge.svg)](https://github.com/vikramkrishna1705-beep/BlockJS/actions/workflows/test.yml)
+[![Node.js CI](https://github.com/vikramkrishna1705-beep/BlockJS/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/vikramkrishna1705-beep/BlockJS/actions/workflows/test.yml)
 [![Testing](https://img.shields.io/badge/Tested_with-Jest-orange.svg)](https://jestjs.io/)
 [![Docker](https://img.shields.io/badge/Dockerized-Yes-blue.svg)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
